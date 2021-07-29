@@ -1,0 +1,64 @@
+{% extends "CrushIt/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'CrushIt/index.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+  <div class="postings">
+
+    <div class="new_post">
+      <textarea id="newpost" rows="3" cols="80" placeholder="What's on your mind?"></textarea>
+        {% if user.is_authenticated %}
+            <button type="button" id="post_btn" class = "btn btn-sm btn-primary" >Post</button>
+        {% else %}
+            <button type="button" id="post_btn" class = "btn btn-sm btn-outline-primary" disabled=true>Post</button>
+        {% endif %}
+    </div>
+
+    <div class="pagination_old_posts">
+      {% for post in page_obj %}
+        <!-- # Each "post" is a Post model object. # -->
+        <div class="post">
+          <a href="{% url 'profile_path' post.user %}"><b>{{ post.user }}</b></a> {{post.timestamp}}<br>
+          <b><span id="body_{{post.id}}">{{post.body}}</span></b>
+          <span id="edit_{{post.id}}"></span> <!-- a textarea will be appended to this span for editing post if triggered  -->
+          <br><br>
+          likes <span id="likes_{{post.id}}">{{post.likes}}</span>
+
+          {% if user.is_authenticated %}
+              {% if post.is_liked %}
+                  <button type="button" id="like_btn_{{post.id}}" class="btn btn-sm btn-primary" onclick="like_post({{post.id}})">Like<span class=emoji>&#x1F44D;</span> </button>
+              {% else %}
+                  <button type="button" id="like_btn_{{post.id}}" class="btn btn-sm btn-outline-primary" onclick="like_post({{post.id}})">Like<span class=emoji>&#x1F44D;</span> </button>
+              {% endif %}
+
+              {% if user == post.user %} <!-- if own post then add edit link -->
+                <button type="button" name="btn_edit" class="btn btn-sm btn-outline-primary" onclick="edit_post({{post.id}})">Edit</button>
+              {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+
+    </div>
+
+  </div>
+
+{% endblock %}

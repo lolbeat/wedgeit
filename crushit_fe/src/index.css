@@ -1,0 +1,103 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.golfround {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+
+.golfhole {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 250px;
+  margin-right: 2px;
+  margin-top: 2px;
+  padding: 0;
+  text-align: center;
+  width: 35px;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ddd;
+  border: 1px solid #999;
+  float: left;
+  font-size: 10px;
+  font-weight: lighter;
+  line-height: 34px;
+  height: 250px;
+  margin-right: 2px;
+  margin-top: 2px;
+  padding: 0;
+  text-align: center;
+  width: 75px;
+}
+
+
+.hole-label {
+  background: #fff;
+  border: none;
+  font-size: 10px;
+  font-weight: lighter;
+  line-height: 34px;
+  margin-right: 1px;
+  margin-top: 1px;
+  padding: 0;
+  text-align: center;
+}
+
+.golfhole:focus {
+  outline: none;
+}
+
+.kbd-navigation .golfhole:focus {
+  background: #fff;
+}
+
+.score-btn {
+  background: #fff;
+  border: 1px solid #999;
+  float: center;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: 0px;
+  margin-top: 1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+
+.round-info {
+  margin-left: 20px;
+}

@@ -1,0 +1,104 @@
+{% extends "CrushIt/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>CrushIt</h2>
+    <h5>{{ request.user.username }}</h5>
+
+    <button class="btn btn-sm btn-outline-secondary" id="import">Import</button>
+    <button class="btn btn-sm btn-outline-secondary" id="rounds">Rounds</button>
+    <button class="btn btn-sm btn-outline-secondary" id="stats">Stats</button>
+    <button class="btn btn-sm btn-outline-secondary" id="courses">Courses</button>
+    <button class="btn btn-sm btn-outline-secondary" id="players">Players</button>
+    <button class="btn btn-sm btn-outline-secondary" id="scorecard_react">Scorecard</button>
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'logout_path' %}">Log Out</a>
+    <hr>
+
+    <div id="course-view">
+      <h3>Search Course</h3>
+      <form id="course-form">
+        <div class="form-group">
+            Course Name: <input id="course-name" class="form-control" placeholder = "Name">
+        </div>
+        <div class="form-group">
+            Location: <input class="form-control" id="course-loc" placeholder="Town">
+        </div>
+        <textarea class="form-control" id="course-info" placeholder="Other info"></textarea>
+        <input id="searchbtn" type="button" class="btn btn-primary" value = "search" />
+      </form>
+    </div>
+
+    <div id="rounds-view">
+      <div id ="rounds-title">
+      </div>
+      <div id="rounds-table">
+        <table id="roundstable">
+          <thead id="roundheader">
+            <tr>
+              <th>Course: </th>
+              <th>Date: </th>
+            </tr>
+          </thead>
+          <tbody id="roundinfo">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="round-view"> <!-- styled with overflow container to enable horizontal scrollbar on small screen -->
+      <h4>SCORECARD</h4>
+      <div class = "round-view">
+        <div id="round-course" style="color:white;font-size:150%;"      <!-- Round title will be course -->
+        </div>
+        <div id="round-date"       <!-- Round title will be course and date (maybe summary ???) -->
+        </div>
+        <br>
+        <div id="scorecard-tables">
+          <table id="plyrtbl">
+            <thead id="plyrtblhd">
+              <tr>
+                <th> </th>
+                <th>Player Name</th>
+                <th>HCP</th>
+                <th>Tee Box</th>
+              </tr>
+            </thead>
+            <tbody id="plyrtblbdy">
+              <!-- add player name, handicap, tee-box here -->
+            </tbody>
+          </table>
+          <br>
+
+          <table id="roundtable">
+            <thead id="roundheader">
+              <tr id="headerrow"> <!-- NOTE: ID for insertions -->
+                <th>Hole</th>
+                <th>Par</th>
+                <th>Index</th>
+                <!-- Tee names will be inserted programatically here -->
+                <!-- player labels will be inserted programatically here -->
+              </tr>
+            </thead>
+            <tbody id="roundbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <div id="newroundform-container"></div>
+    <div id="react-container"></div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'CrushIt/index.js' %}"></script>
+    <!-- Load React
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!-- Load our React component -->
+    <script src="static/CrushIt/react_components.js" type="text/babel"></script>
+    <!--non production load Babel-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+{% endblock %}
